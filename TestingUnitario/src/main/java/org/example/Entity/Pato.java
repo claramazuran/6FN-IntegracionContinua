@@ -23,11 +23,11 @@ public class Pato {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idPato;
 
-    private String NombreCientificoPato;
+    private String nombreCientificoPato;
     private Float pesoMinPato;
     private Float pesoMaxPato;
-    private String PlumajePato;
+    private String plumajePato;
 
 }

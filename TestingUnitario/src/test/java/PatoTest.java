@@ -1,5 +1,3 @@
 public class PatoTest {
-
-    private Pato pato;
-
+    //private Pato pato;
 }

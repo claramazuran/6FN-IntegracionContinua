@@ -16,6 +16,10 @@ import java.util.Date;
 @Builder
 public class Comportamiento {
 
+    public Comportamiento (String nombreComportamiento) {
+        this.nombreComportamiento = nombreComportamiento;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idComportamiento;

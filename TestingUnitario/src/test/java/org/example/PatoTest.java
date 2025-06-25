@@ -181,6 +181,37 @@ public class PatoTest {
         }
     }
 
+    /* Test Mauri */
+    @Test
+    void debeSimularSonidoCorrectamente() {
+        Pato pato = new Pato(1L, "Lucas", "Anas platyrhynchos", 20f, 30f, "Vegetal", new Comportamiento("Quack"));
+
+        String resultado = pato.simularSonido();
+        assertEquals("El pato Lucas está haciendo Quack", resultado);
+    }
+
+    @Test
+    void pesoMinimoNoDebeSerMayorQuePesoMaximo() {
+        Pato pato = Pato.builder()
+                .nombrePato("Pato Peso")
+                .nombreCientificoPato("Anas")
+                .pesoMinPato(3.0f)
+                .pesoMaxPato(5.0f)
+                .plumajePato("Gris")
+                .build();
+
+        assertTrue(pato.getPesoMinPato() <= pato.getPesoMaxPato(),
+                "El peso mínimo no debe ser mayor que el peso máximo");
+    }
+
+    @Test
+    void simularSonidoDebeLanzarExcepcionSiNoHayComportamiento() {
+        Pato pato = Pato.builder()
+                .nombrePato("Silencioso")
+                .build();
+
+        assertThrows(IllegalStateException.class, pato::simularSonido);
+    }
 
 
 }

@@ -14,7 +14,7 @@ public class PatoTest {
 
     private Pato pato;
     @Test
-    void testClasePatoExiste() {
+    public void testClasePatoExiste() {
         try {
             Class<?> clase = Class.forName("org.example.Entity.Pato");
             assertNotNull(clase, "La clase Pato debería existir");
@@ -62,7 +62,7 @@ public class PatoTest {
     }
 
     @Test
-    void testAtributoPlumajePato() {
+    public void testAtributoPlumajePato() {
        try {
            assertEquals(String.class, Pato.class.getDeclaredField("plumajePato").getType());
        } catch (NoSuchFieldException e) {
@@ -71,7 +71,7 @@ public class PatoTest {
     }
 
     @Test
-    void testAtributoNombreCientificoPato() {
+    public void testAtributoNombreCientificoPato() {
         try {
             assertEquals(String.class, Pato.class.getDeclaredField("nombreCientificoPato").getType());
         } catch (NoSuchFieldException e) {
@@ -80,7 +80,7 @@ public class PatoTest {
     }
 
     @Test
-    void testAtributoPesoMinPato() {
+    public void testAtributoPesoMinPato() {
         try {
             assertEquals(Float.class, Pato.class.getDeclaredField("pesoMinPato").getType());
         } catch (NoSuchFieldException e) {
@@ -89,7 +89,7 @@ public class PatoTest {
     }
 
     @Test
-    void testAtributoPesoMaxPato() {
+    public void testAtributoPesoMaxPato() {
         try {
             assertEquals(Float.class, Pato.class.getDeclaredField("pesoMaxPato").getType());
         } catch (NoSuchFieldException e) {
@@ -98,11 +98,37 @@ public class PatoTest {
     }
 
     @Test
-    void testAtributoIdPato() {
+    public void testAtributoIdPato() {
         try {
             assertEquals(Long.class, Pato.class.getDeclaredField("idPato").getType());
         } catch (NoSuchFieldException e) {
             fail("No se encontró el atributo idPato");
+        }
+    }
+
+    @Test
+    public void testClaseAlimentoExiste() {
+        try {
+            Class<?> clase = Class.forName("org.example.Entity.Alimento");
+            assertNotNull(clase, "La clase Alimento debería existir");
+        } catch (ClassNotFoundException e) {
+            fail("No se encontró la clase Alimento");
+        }
+    }
+
+    @Test
+    public void testTipoAtributoStringParaNombreAlimento() {
+        Alimento alimento = Alimento.builder().nombre("Lechuga").build();
+        assertInstanceOf(String.class, alimento.getNombre(), "El nombre debería ser de tipo String");
+    }
+
+    @Test
+    public void testClaseTipoAlimentoExiste() {
+        try {
+            Class<?> clase = Class.forName("org.example.Entity.TipoAlimento");
+            assertNotNull(clase, "La clase TipoAlimento debería existir");
+        } catch (ClassNotFoundException e) {
+            fail("No se encontró la clase TipoAlimento");
         }
     }
 

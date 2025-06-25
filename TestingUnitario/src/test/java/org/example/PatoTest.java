@@ -213,5 +213,40 @@ public class PatoTest {
         assertThrows(IllegalStateException.class, pato::simularSonido);
     }
 
+    @Test
+    void testModificarComportamientoExistente() {
+        Comportamiento comportamiento = new Comportamiento("Graznido");
+        Pato pato = Pato.builder()
+                .nombrePato("Lucas")
+                .comportamientoSonido(comportamiento)
+                .build();
+
+        comportamiento.setNombreComportamiento("Graznido Modificado");
+
+        assertEquals("El pato Lucas está haciendo Graznido Modificado",
+                pato.simularSonido(),
+                "El sonido del pato debería reflejar el cambio en el comportamiento");
+    }
+    @Test
+    void testPatoConPesoMaximoNegativo() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Pato pato = Pato.builder()
+                    .nombrePato("Pato Negativo")
+                    .pesoMaxPato(-1.0f)
+                    .build();
+        }, "No debería permitir crear un pato con peso máximo negativo");
+    }
+
+    @Test
+    void testPatoConPesoMinimoNegativo() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Pato pato = Pato.builder()
+                    .nombrePato("Pato")
+                    .pesoMinPato(-1.0f)
+                    .build();
+        }, "No debería permitir crear un pato con peso minimo negativo");
+    }
+
+
 
 }

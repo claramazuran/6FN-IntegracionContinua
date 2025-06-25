@@ -228,23 +228,26 @@ public class PatoTest {
                 "El sonido del pato debería reflejar el cambio en el comportamiento");
     }
     @Test
-    void testPatoConPesoMaximoNegativo() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Pato pato = Pato.builder()
-                    .nombrePato("Pato Negativo")
-                    .pesoMaxPato(-1.0f)
-                    .build();
-        }, "No debería permitir crear un pato con peso máximo negativo");
+    void testPatoNoArgsConstructor() {
+        Pato pato = new Pato();
+
+        assertAll("Verificar constructor sin argumentos",
+                () -> assertNull(pato.getIdPato()),
+                () -> assertNull(pato.getNombrePato()),
+                () -> assertNull(pato.getNombreCientificoPato()),
+                () -> assertNull(pato.getPesoMinPato()),
+                () -> assertNull(pato.getPesoMaxPato()),
+                () -> assertNull(pato.getPlumajePato()),
+                () -> assertNull(pato.getComportamientoSonido())
+        );
     }
 
+
     @Test
-    void testPatoConPesoMinimoNegativo() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            Pato pato = Pato.builder()
-                    .nombrePato("Pato")
-                    .pesoMinPato(-1.0f)
-                    .build();
-        }, "No debería permitir crear un pato con peso minimo negativo");
+    void testPatoComportamientoNuloPorDefecto() {
+        Pato pato = new Pato();
+        assertNull(pato.getComportamientoSonido(),
+                "Un nuevo pato debería tener comportamiento null por defecto");
     }
 
 

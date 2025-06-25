@@ -1,9 +1,14 @@
 package org.example;
 
 import org.example.Entity.Alimento;
+import org.example.Entity.Comportamiento;
 import org.example.Entity.Pato;
 import org.example.Entity.TipoAlimento;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -131,6 +136,51 @@ public class PatoTest {
             fail("No se encontró la clase TipoAlimento");
         }
     }
+
+    @Test
+    public void atributosDeComportamientoConCamelCase(){
+        Class<?> comportamientoClass = Comportamiento.class;
+
+        for (Field field : comportamientoClass.getDeclaredFields()) {
+            String nombreCampo = field.getName();
+            boolean esCamelCase = nombreCampo.matches("^[a-z]+[a-zA-Z0-9]*$");
+
+            System.out.println("Verificando atributo: " + nombreCampo);
+
+            assertTrue(esCamelCase, "El atributo '" + nombreCampo + "' no está en camelCase");
+            System.out.println("Todos los atributos usan Camel Case");
+        }
+    }
+
+    @Test
+    void siHayUnAtributoId_debeSerLong() {
+        Class<?> clase = Comportamiento.class;
+
+        for (Field field : clase.getDeclaredFields()) {
+            String nombreCampo = field.getName();
+
+            if (nombreCampo.contains("id")) {
+                Class<?> tipoCampo = field.getType();
+
+                boolean esLongValido = tipoCampo.equals(long.class) || tipoCampo.equals(Long.class);
+
+                assertTrue(esLongValido, "El atributo 'id' debe ser de tipo long o Long, pero es: " + tipoCampo.getSimpleName());
+                System.out.println("El id de la clase es de tipo Long!");
+            }
+        }
+    }
+
+    @Test
+    void todosLosAtributosDebenSerPrivate() {
+        Class<?> clase = Comportamiento.class; // Cambiá esto por la clase que quieras verificar
+
+        for (Field field : clase.getDeclaredFields()) {
+            boolean esPrivate = Modifier.isPrivate(field.getModifiers());
+
+            assertTrue(esPrivate, "El atributo '" + field.getName() + "' no es private");
+        }
+    }
+
 
 
 }

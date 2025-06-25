@@ -21,6 +21,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Dar permisos a gradlew
+        working-directory: ./TestingUnitario
         run: chmod +x gradlew
 
       - name: Compilar el proyecto

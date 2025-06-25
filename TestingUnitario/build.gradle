@@ -15,12 +15,17 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
-    //dependencia lombok
-    implementation("org.projectlombok:lombok:1.18.38")
-    compileOnly 'org.projectlombok:lombok'
+    // Lombok: compileOnly + annotationProcessor
+    compileOnly 'org.projectlombok:lombok:1.18.38'
+    annotationProcessor 'org.projectlombok:lombok:1.18.38'
 
-    //depenmdencia para jpa
-    implementation("org.springframework.boot:spring-boot-starter-data-jpa:3.5.3")
+
+    // Si en tests también usás Lombok para tus clases de prueba
+    testCompileOnly 'org.projectlombok:lombok:1.18.38'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.38'
+
+    // JPA (Spring Data)
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa:3.5.3'
 }
 
 test {

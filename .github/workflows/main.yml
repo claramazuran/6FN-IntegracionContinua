@@ -1,6 +1,6 @@
-name: CI Pipeline
+name: CI Pipeline     # El nombre del workflow
 
-on:
+on:                   # Cada vez que alguien haga "push" o "pull_request" en la branch "main" se va a ejecutar este workflow
   push:
     branches: [ main ]
   pull_request:

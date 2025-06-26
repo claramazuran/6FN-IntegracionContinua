@@ -31,7 +31,7 @@ public class PatoTest {
     @Test
     public void crearTipoAlimento(){
 
-        TipoAlimento tipoAlimento = TipoAlimento.builder().nombre("Carnecita").build();
+        TipoAlimento tipoAlimento = TipoAlimento.builder().nombre("Verdura").build();
 
         assertNotNull(tipoAlimento, "El objeto no debería ser null");
         assertEquals("Verdura", tipoAlimento.getNombre(),

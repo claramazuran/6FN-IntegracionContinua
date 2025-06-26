@@ -137,6 +137,8 @@ public class PatoTest {
         }
     }
 
+    //Cambio para probar
+
     @Test
     public void atributosDeComportamientoConCamelCase(){
         Class<?> comportamientoClass = Comportamiento.class;
@@ -189,12 +191,14 @@ public class PatoTest {
         assertEquals("El pato Lucas está haciendo Quack", resultado);
     }
 
+
+    //PRUEBA ARREGLADA
     @Test
     void pesoMinimoNoDebeSerMayorQuePesoMaximo() {
         Pato pato = Pato.builder()
                 .nombrePato("Pato Peso")
                 .nombreCientificoPato("Anas")
-                .pesoMinPato(3.0f)
+                .pesoMinPato(4.0f)
                 .pesoMaxPato(5.0f)
                 .plumajePato("Gris")
                 .build();

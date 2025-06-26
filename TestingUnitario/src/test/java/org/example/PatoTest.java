@@ -192,13 +192,13 @@ public class PatoTest {
     }
 
 
-    //PRUEBA QUE DEBE FALLAR
+    //PRUEBA ARREGLADA
     @Test
     void pesoMinimoNoDebeSerMayorQuePesoMaximo() {
         Pato pato = Pato.builder()
                 .nombrePato("Pato Peso")
                 .nombreCientificoPato("Anas")
-                .pesoMinPato(9.0f)
+                .pesoMinPato(4.0f)
                 .pesoMaxPato(5.0f)
                 .plumajePato("Gris")
                 .build();

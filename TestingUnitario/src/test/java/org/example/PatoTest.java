@@ -1,9 +1,14 @@
 package org.example;
 
 import org.example.Entity.Alimento;
+import org.example.Entity.Comportamiento;
 import org.example.Entity.Pato;
 import org.example.Entity.TipoAlimento;
 import org.junit.jupiter.api.Test;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -134,5 +139,116 @@ public class PatoTest {
 
     //Cambio para probar
 
+    @Test
+    public void atributosDeComportamientoConCamelCase(){
+        Class<?> comportamientoClass = Comportamiento.class;
+
+        for (Field field : comportamientoClass.getDeclaredFields()) {
+            String nombreCampo = field.getName();
+            boolean esCamelCase = nombreCampo.matches("^[a-z]+[a-zA-Z0-9]*$");
+
+            System.out.println("Verificando atributo: " + nombreCampo);
+
+            assertTrue(esCamelCase, "El atributo '" + nombreCampo + "' no está en camelCase");
+            System.out.println("Todos los atributos usan Camel Case");
+        }
+    }
+
+    @Test
+    void siHayUnAtributoId_debeSerLong() {
+        Class<?> clase = Comportamiento.class;
+
+        for (Field field : clase.getDeclaredFields()) {
+            String nombreCampo = field.getName();
+
+            if (nombreCampo.contains("id")) {
+                Class<?> tipoCampo = field.getType();
+
+                boolean esLongValido = tipoCampo.equals(long.class) || tipoCampo.equals(Long.class);
+
+                assertTrue(esLongValido, "El atributo 'id' debe ser de tipo long o Long, pero es: " + tipoCampo.getSimpleName());
+                System.out.println("El id de la clase es de tipo Long!");
+            }
+        }
+    }
+
+    @Test
+    void todosLosAtributosDebenSerPrivate() {
+        Class<?> clase = Comportamiento.class; // Cambiá esto por la clase que quieras verificar
+
+        for (Field field : clase.getDeclaredFields()) {
+            boolean esPrivate = Modifier.isPrivate(field.getModifiers());
+
+            assertTrue(esPrivate, "El atributo '" + field.getName() + "' no es private");
+        }
+    }
+
+    @Test
+    void debeSimularSonidoCorrectamente() {
+        Pato pato = new Pato(1L, "Lucas", "Anas platyrhynchos", 20f, 30f, "Vegetal", new Comportamiento("Quack"));
+
+        String resultado = pato.simularSonido();
+        assertEquals("El pato Lucas está haciendo Quack", resultado);
+    }
+
+    @Test
+    void pesoMinimoNoDebeSerMayorQuePesoMaximo() {
+        Pato pato = Pato.builder()
+                .nombrePato("Pato Peso")
+                .nombreCientificoPato("Anas")
+                .pesoMinPato(3.0f)
+                .pesoMaxPato(5.0f)
+                .plumajePato("Gris")
+                .build();
+
+        assertTrue(pato.getPesoMinPato() <= pato.getPesoMaxPato(),
+                "El peso mínimo no debe ser mayor que el peso máximo");
+    }
+
+    @Test
+    void simularSonidoDebeLanzarExcepcionSiNoHayComportamiento() {
+        Pato pato = Pato.builder()
+                .nombrePato("Silencioso")
+                .build();
+
+        assertThrows(IllegalStateException.class, pato::simularSonido);
+    }
+
+    @Test
+    void testModificarComportamientoExistente() {
+        Comportamiento comportamiento = new Comportamiento("Graznido");
+        Pato pato = Pato.builder()
+                .nombrePato("Lucas")
+                .comportamientoSonido(comportamiento)
+                .build();
+
+        comportamiento.setNombreComportamiento("Graznido Modificado");
+
+        assertEquals("El pato Lucas está haciendo Graznido Modificado",
+                pato.simularSonido(),
+                "El sonido del pato debería reflejar el cambio en el comportamiento");
+    }
+
+    @Test
+    void testPatoNoArgsConstructor() {
+        Pato pato = new Pato();
+
+        assertAll("Verificar constructor sin argumentos",
+                () -> assertNull(pato.getIdPato()),
+                () -> assertNull(pato.getNombrePato()),
+                () -> assertNull(pato.getNombreCientificoPato()),
+                () -> assertNull(pato.getPesoMinPato()),
+                () -> assertNull(pato.getPesoMaxPato()),
+                () -> assertNull(pato.getPlumajePato()),
+                () -> assertNull(pato.getComportamientoSonido())
+        );
+    }
+
+    @Test
+    void testPatoComportamientoNuloPorDefecto() {
+        Pato pato = new Pato();
+        assertNull(pato.getComportamientoSonido(),
+                "Un nuevo pato debería tener comportamiento null por defecto");
+    }
 
 }

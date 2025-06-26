@@ -181,7 +181,6 @@ public class PatoTest {
         }
     }
 
-    /* Test Mauri */
     @Test
     void debeSimularSonidoCorrectamente() {
         Pato pato = new Pato(1L, "Lucas", "Anas platyrhynchos", 20f, 30f, "Vegetal", new Comportamiento("Quack"));
@@ -227,6 +226,7 @@ public class PatoTest {
                 pato.simularSonido(),
                 "El sonido del pato debería reflejar el cambio en el comportamiento");
     }
+
     @Test
     void testPatoNoArgsConstructor() {
         Pato pato = new Pato();
@@ -242,14 +242,11 @@ public class PatoTest {
         );
     }
 
-
     @Test
     void testPatoComportamientoNuloPorDefecto() {
         Pato pato = new Pato();
         assertNull(pato.getComportamientoSonido(),
                 "Un nuevo pato debería tener comportamiento null por defecto");
     }
-
-
 
 }
